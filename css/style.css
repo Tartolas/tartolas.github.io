@@ -231,10 +231,56 @@ ul   { list-style: none; }
 
 .hero__inner {
   display: grid;
-  grid-template-columns: 1fr 240px;
-  gap: 4rem;
+  grid-template-columns: 1fr 320px;
+  gap: 5rem;
   align-items: center;
   padding-block: 6rem;
+}
+
+/* ── Stats block ── */
+.hero__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid rgba(181,144,42,0.2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.stat {
+  padding: 1.625rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border-right: 1px solid rgba(181,144,42,0.15);
+  border-bottom: 1px solid rgba(181,144,42,0.15);
+}
+
+.stat:nth-child(2n) { border-right: none; }
+.stat:nth-child(3),
+.stat:nth-child(4)  { border-bottom: none; }
+
+.stat__number {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1;
+}
+
+.stat__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.35;
+}
+
+.stat__detail {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.55;
+  margin-top: 0.35rem;
 }
 
 .hero__eyebrow {
@@ -658,7 +704,10 @@ ul   { list-style: none; }
     padding-block: 5rem;
   }
   .hero__body { max-width: 100%; }
-  .emblem { display: none; }
+  .hero__stats {
+    max-width: 400px;
+    margin-inline: auto;
+  }
 }
 
 @media (max-width: 768px) {
