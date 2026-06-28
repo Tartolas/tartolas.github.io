@@ -3,339 +3,704 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="HELIOS Colectivo Empresarial — Regularización de negocios, licencias y trámites gubernamentales en Querétaro. Paquetes desde $3,500 MXN.">
-  <meta name="keywords" content="regularización de negocios Querétaro, licencia de funcionamiento, protección civil, consultoría empresarial Querétaro">
-  <meta property="og:title" content="HELIOS Colectivo Empresarial">
-  <meta property="og:description" content="Regulariza tu negocio. Opera sin contratiempos. Gestión de trámites gubernamentales en Querétaro.">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0D1B2A">
-  <title>HELIOS Colectivo Empresarial — Regularización de Negocios en Querétaro</title>
+  <meta name="description" content="Helios Colectivo Empresarial — Consultoría y gestión empresarial en Querétaro, Corregidora y El Marqués. Licencias de funcionamiento, Vo.Bo. Protección Civil, regularización legal.">
+  <title>Helios Colectivo Empresarial — Querétaro</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ────────────────────────────────────────── */
+    :root {
+      --verde-noche:   #1C2B24;
+      --verde-helios:  #2A5C45;
+      --oro-helios:    #C9A84C;
+      --blanco-calido: #F4F8F5;
+      --verde-apoyo:   #7AAD8E;
+      --verde-tenue:   #E8F2EC;
+
+      --font-display: 'Libre Baskerville', Georgia, serif;
+      --font-body:    'Inter', 'Segoe UI', system-ui, sans-serif;
+
+      --tracking-logo: 0.22em;
+      --tracking-sub:  0.36em;
+      --tracking-caps: 0.18em;
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+
+      --shadow-sm: 0 1px 6px rgba(28,43,36,.07);
+      --shadow-md: 0 2px 20px rgba(28,43,36,.10);
+    }
+
+    /* ── RESET ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--blanco-calido);
+      color: var(--verde-noche);
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── UTILIDADES ─────────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .eyebrow {
+      font-size: 10px; font-weight: 600; letter-spacing: var(--tracking-caps);
+      text-transform: uppercase; color: var(--verde-apoyo); margin-bottom: 12px;
+    }
+
+    /* ── NAV ────────────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--verde-noche);
+      border-bottom: 1px solid rgba(201,168,76,.15);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; max-width: 1100px; margin: 0 auto;
+    }
+    .nav-logo { display: flex; flex-direction: column; }
+    .nav-logo-sub {
+      font-family: var(--font-body); font-size: 8px; font-weight: 500;
+      letter-spacing: var(--tracking-sub); text-transform: uppercase;
+      color: var(--verde-apoyo); margin-bottom: 2px;
+    }
+    .nav-logo-name {
+      font-family: var(--font-display); font-weight: 700; font-size: 22px;
+      letter-spacing: var(--tracking-logo); color: var(--blanco-calido);
+    }
+    .nav-logo-rule { height: 2px; background: var(--oro-helios); margin-top: 4px; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      font-size: 13px; color: var(--verde-apoyo); font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--blanco-calido); }
+    .nav-cta {
+      background: var(--verde-helios); color: var(--blanco-calido) !important;
+      padding: 9px 20px; border-radius: var(--radius-sm); font-weight: 600;
+      font-size: 13px; transition: background .2s;
+    }
+    .nav-cta:hover { background: #357A5C !important; }
+    .nav-mobile-btn { display: none; }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .hero {
+      background: var(--verde-noche);
+      padding: 100px 0 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(42,92,69,.35) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-eyebrow { color: var(--oro-helios); }
+    .hero h1 {
+      font-family: var(--font-display); font-weight: 700; font-size: clamp(38px,5vw,58px);
+      color: var(--blanco-calido); line-height: 1.15; margin-bottom: 20px;
+    }
+    .hero h1 em { color: var(--oro-helios); font-style: normal; }
+    .hero-sub {
+      font-size: 17px; color: var(--verde-apoyo); line-height: 1.7; margin-bottom: 36px;
+      font-weight: 400;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--verde-helios); color: var(--blanco-calido);
+      padding: 14px 28px; border-radius: var(--radius-sm); font-weight: 600;
+      font-size: 15px; transition: background .2s; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #357A5C; }
+    .btn-ghost {
+      display: inline-flex; align-items: center;
+      border: 1.5px solid rgba(122,173,142,.4); color: var(--verde-apoyo);
+      padding: 14px 28px; border-radius: var(--radius-sm); font-weight: 500;
+      font-size: 15px; transition: all .2s;
+    }
+    .btn-ghost:hover { border-color: var(--verde-apoyo); color: var(--blanco-calido); }
+    .hero-zona {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 28px;
+      font-size: 12px; color: rgba(122,173,142,.6); letter-spacing: .06em;
+    }
+    .hero-zona::before {
+      content: ''; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--oro-helios);
+    }
+
+    /* hero right: card apilada */
+    .hero-card {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(201,168,76,.18);
+      border-radius: var(--radius-lg); padding: 36px 32px;
+    }
+    .hero-card-title {
+      font-family: var(--font-display); font-size: 15px; color: var(--oro-helios);
+      margin-bottom: 20px; letter-spacing: .04em;
+    }
+    .client-type {
+      display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px;
+      padding-bottom: 18px; border-bottom: 1px solid rgba(122,173,142,.15);
+    }
+    .client-type:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .client-icon {
+      width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+      background: rgba(42,92,69,.4); display: flex; align-items: center;
+      justify-content: center; font-size: 16px; margin-top: 2px;
+    }
+    .client-label { font-size: 13px; font-weight: 600; color: var(--blanco-calido); margin-bottom: 3px; }
+    .client-desc  { font-size: 12px; color: var(--verde-apoyo); line-height: 1.5; }
+
+    /* ── SERVICIOS ───────────────────────────────────────── */
+    .servicios { padding: 96px 0; }
+    .section-header { text-align: center; max-width: 640px; margin: 0 auto 56px; }
+    .section-header h2 {
+      font-family: var(--font-display); font-size: clamp(28px,4vw,40px);
+      font-weight: 700; color: var(--verde-noche); line-height: 1.2; margin-bottom: 16px;
+    }
+    .section-header p { font-size: 16px; color: #555; line-height: 1.7; }
+
+    .servicios-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    }
+    .servicio-card {
+      background: white; border-radius: var(--radius-md); padding: 32px 28px;
+      border: 1px solid #E2EDE7; box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .servicio-card:hover { box-shadow: var(--shadow-md); border-color: var(--verde-apoyo); }
+    .servicio-card.destacado {
+      background: var(--verde-noche); border-color: var(--verde-noche);
+    }
+    .servicio-icon {
+      width: 46px; height: 46px; border-radius: 10px; margin-bottom: 18px;
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .servicio-icon.light { background: var(--verde-tenue); }
+    .servicio-icon.dark  { background: rgba(42,92,69,.5); }
+    .servicio-nombre {
+      font-size: 17px; font-weight: 700; color: var(--verde-noche); margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .servicio-card.destacado .servicio-nombre { color: var(--blanco-calido); }
+    .servicio-desc { font-size: 14px; color: #666; line-height: 1.65; }
+    .servicio-card.destacado .servicio-desc { color: var(--verde-apoyo); }
+
+    /* ── TESTIMONIOS — CARRUSEL ──────────────────────────── */
+    .testimonios { padding: 96px 0; background: var(--blanco-calido); overflow: hidden; }
+
+    .carousel-wrapper {
+      position: relative;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+      mask-image:         linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+    }
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      animation: scroll-right 70s linear infinite;
+    }
+    .carousel-track:hover { animation-play-state: paused; }
+
+    @keyframes scroll-right {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0%); }
+    }
+
+    .test-card {
+      background: white; border-radius: var(--radius-md); padding: 28px 26px;
+      border: 1px solid #E2EDE7; box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column;
+      width: 340px; flex-shrink: 0;
+    }
+    .test-stars { color: var(--oro-helios); font-size: 13px; margin-bottom: 14px; letter-spacing: 3px; }
+    .test-quote {
+      font-size: 14px; color: #444; line-height: 1.75; flex: 1;
+      font-style: italic; margin-bottom: 20px;
+    }
+    .test-quote::before {
+      content: '\201C'; font-size: 32px; color: var(--verde-apoyo);
+      line-height: 0; vertical-align: -12px; margin-right: 3px;
+    }
+    .test-meta { display: flex; flex-direction: column; gap: 3px; border-top: 1px solid #E8F2EC; padding-top: 14px; }
+    .test-name { font-size: 13px; font-weight: 700; color: var(--verde-noche); }
+    .test-tipo { font-size: 11px; color: var(--verde-apoyo); letter-spacing: .03em; }
+
+    /* ── ZONA ────────────────────────────────────────────── */
+    .zona { background: var(--verde-tenue); padding: 60px 0; }
+    .zona-inner {
+      max-width: 900px; margin: 0 auto; padding: 0 24px;
+      text-align: center;
+    }
+    .zona h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--verde-noche); margin-bottom: 10px; }
+    .zona p { color: #555; font-size: 15px; margin-bottom: 28px; }
+    .zona-municipios { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .municipio-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: white; border: 1px solid #D4E4DA; border-radius: 40px;
+      padding: 10px 22px; font-size: 14px; font-weight: 600; color: var(--verde-helios);
+      box-shadow: var(--shadow-sm);
+    }
+    .municipio-chip::before { content: '●'; color: var(--oro-helios); font-size: 8px; }
+
+    /* ── CONTACTO ────────────────────────────────────────── */
+    .contacto { padding: 96px 0; background: white; }
+    .contacto-inner {
+      max-width: 860px; margin: 0 auto; padding: 0 24px; text-align: center;
+    }
+    .contacto h2 {
+      font-family: var(--font-display); font-size: clamp(28px,4vw,40px); font-weight: 700;
+      color: var(--verde-noche); margin-bottom: 16px; line-height: 1.25;
+    }
+    .contacto h2 em { color: var(--verde-helios); font-style: normal; }
+    .contacto-sub {
+      font-size: 16px; color: #555; line-height: 1.7;
+      max-width: 600px; margin: 0 auto 40px;
+    }
+    .contacto-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: #25D366; color: white;
+      padding: 16px 32px; border-radius: var(--radius-sm); font-weight: 700;
+      font-size: 16px; transition: background .2s;
+    }
+    .btn-wa:hover { background: #20b858; }
+    .btn-wa svg { width: 22px; height: 22px; fill: white; flex-shrink: 0; }
+    .btn-email {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #D4E4DA; color: var(--verde-helios);
+      padding: 16px 32px; border-radius: var(--radius-sm); font-weight: 600;
+      font-size: 16px; transition: all .2s;
+    }
+    .btn-email:hover { border-color: var(--verde-helios); background: var(--verde-tenue); }
+    .contacto-nota {
+      margin-top: 28px; font-size: 13px; color: #999; line-height: 1.8;
+    }
+    .contacto-nota strong { color: #777; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--verde-noche); padding: 48px 0 32px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .footer-logo-sub { font-size: 7px; color: var(--verde-apoyo); letter-spacing: var(--tracking-sub); text-transform: uppercase; font-weight: 500; margin-bottom: 3px; }
+    .footer-logo-name { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--blanco-calido); letter-spacing: var(--tracking-logo); }
+    .footer-logo-rule { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .footer-logo-rule .line { width: 60px; height: 2px; background: var(--oro-helios); }
+    .footer-logo-rule .dot  { width: 4px; height: 4px; border-radius: 50%; background: var(--oro-helios); }
+    .footer-tagline { font-size: 12px; color: rgba(122,173,142,.6); margin-top: 10px; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer-links h4 { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--oro-helios); margin-bottom: 6px; }
+    .footer-links a { font-size: 13px; color: var(--verde-apoyo); transition: color .15s; }
+    .footer-links a:hover { color: var(--blanco-calido); }
+    .footer-bottom {
+      max-width: 1100px; margin: 32px auto 0; padding: 20px 24px 0;
+      border-top: 1px solid rgba(122,173,142,.12);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .footer-bottom p { font-size: 11px; color: rgba(122,173,142,.4); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 880px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-card { display: none; }
+      .servicios-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .nav-links { display: none; }
+      .nav-mobile-btn {
+        display: flex; align-items: center; justify-content: center;
+        width: 40px; height: 40px; border-radius: 8px;
+        background: rgba(122,173,142,.12); color: var(--verde-apoyo);
+        cursor: pointer; border: none; font-size: 20px;
+      }
+    }
+    @media (max-width: 560px) {
+      .hero { padding: 64px 0 56px; }
+      .servicios, .testimonios, .contacto { padding: 64px 0; }
+    }
+  </style>
 </head>
+
 <body>
 
-  <a class="skip-link" href="#main">Saltar al contenido principal</a>
-
-  <!-- ═══════════════════════════════
-       HEADER
-  ═══════════════════════════════ -->
-  <header class="header" id="inicio">
-    <div class="container header__inner">
-      <div class="logo">
-        <span class="logo__name">HELIOS</span>
-        <span class="logo__tagline">Colectivo Empresarial</span>
-      </div>
-      <nav class="nav">
+  <!-- ══ NAV ══════════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="Helios Colectivo Empresarial — inicio">
+        <span class="nav-logo-sub">Colectivo Empresarial</span>
+        <span class="nav-logo-name">HELIOS</span>
+        <span class="nav-logo-rule" aria-hidden="true"></span>
+      </a>
+      <div class="nav-links">
         <a href="#servicios">Servicios</a>
-        <a href="#nosotros">Nosotros</a>
-        <a
-          href="https://wa.me/524426001520?text=Hola%2C%20me%20interesa%20conocer%20sus%20servicios."
-          class="btn btn--outline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Contactar</a>
-      </nav>
+        <a href="#testimonios">Casos</a>
+        <a href="#contacto" class="nav-cta">Cuéntame tu caso</a>
+      </div>
+      <button class="nav-mobile-btn" aria-label="Menú">☰</button>
     </div>
-  </header>
+  </nav>
 
-  <!-- ═══════════════════════════════
-       HERO
-  ═══════════════════════════════ -->
-  <main id="main">
-  <section class="hero">
-    <div class="container hero__inner">
-
-      <div class="hero__content">
-        <span class="hero__eyebrow">Consultoría Gubernamental · Querétaro</span>
-        <h1 class="hero__title">
-          Regulariza tu negocio.<br>
-          Opera sin contratiempos.
-        </h1>
-        <p class="hero__body">
-          Gestionamos cada trámite con conocimiento del marco regulatorio local
-          y presencia directa ante las dependencias municipales que tu negocio necesita.
+  <!-- ══ HERO ══════════════════════════════════════════════ -->
+  <section class="hero" aria-label="Inicio">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow hero-eyebrow">Querétaro · Corregidora · El Marqués</p>
+        <h1>Certeza de <em>inicio a fin.</em></h1>
+        <p class="hero-sub">
+          Regularizamos negocios, gestionamos trámites y acompañamos proyectos
+          de ingeniería y legales en la zona metropolitana de Querétaro.
         </p>
-        <a
-          href="https://wa.me/524426001520?text=Hola%2C%20quiero%20regularizar%20mi%20negocio.%20%C2%BFPodr%C3%ADan%20orientarme%3F"
-          class="btn btn--primary"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Iniciar conversación
-          <span>→</span>
+        <div class="hero-btns">
+          <a href="https://wa.me/555645033980?text=Hola,%20quiero%20platicar%20sobre%20mi%20caso." class="btn-primary" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Cuéntame tu caso
+          </a>
+          <a href="#servicios" class="btn-ghost">Ver servicios</a>
+        </div>
+        <p class="hero-zona">Atendemos Querétaro, Corregidora y El Marqués</p>
+      </div>
+
+      <div class="hero-card" aria-hidden="true">
+        <p class="hero-card-title">¿En cuál de estos te encuentras?</p>
+        <div class="client-type">
+          <div class="client-icon">🏪</div>
+          <div>
+            <p class="client-label">Estás abriendo un negocio</p>
+            <p class="client-desc">Quieres arrancar en regla pero no sabes exactamente qué necesitas ni por dónde empezar.</p>
+          </div>
+        </div>
+        <div class="client-type">
+          <div class="client-icon">📋</div>
+          <div>
+            <p class="client-label">Llevas tiempo operando sin permisos</p>
+            <p class="client-desc">El negocio ya funciona pero los trámites siguen pendientes o no te han salido.</p>
+          </div>
+        </div>
+        <div class="client-type">
+          <div class="client-icon">⚠️</div>
+          <div>
+            <p class="client-label">Te quedaron a deber</p>
+            <p class="client-desc">Un gestor anterior cobró y no entregó, o el trámite quedó a medias y sin resolución.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICIOS ══════════════════════════════════════════ -->
+  <section class="servicios" id="servicios" aria-label="Servicios">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Lo que hacemos</p>
+        <h2>Regularización legal</h2>
+        <p>Nos especializamos en poner negocios y propiedades en regla en el municipio de Querétaro y zona metropolitana.</p>
+      </div>
+    </div>
+    <div class="servicios-grid">
+
+      <div class="servicio-card destacado">
+        <div class="servicio-icon dark">📄</div>
+        <p class="servicio-nombre">Licencia de Funcionamiento</p>
+        <p class="servicio-desc">Trámite ante el municipio para operar legalmente. Lo gestionamos revisando tu situación específica — giro, uso de suelo y condiciones del local — antes de avanzar.</p>
+      </div>
+
+      <div class="servicio-card">
+        <div class="servicio-icon light">🔥</div>
+        <p class="servicio-nombre">Vo.Bo. Protección Civil</p>
+        <p class="servicio-desc">Visto bueno de Protección Civil para establecimientos que lo requieren por su tipo de actividad o aforo. Revisión de condiciones previo al trámite.</p>
+      </div>
+
+      <div class="servicio-card">
+        <div class="servicio-icon light">⚖️</div>
+        <p class="servicio-nombre">Otros trámites y proyectos</p>
+        <p class="servicio-desc">Uso de suelo, constancias de seguridad, regularización de predios, planos, topografía y DRO. Si tu caso no encaja en lo de arriba, cuéntanoslo.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ TESTIMONIOS — CARRUSEL ════════════════════════════ -->
+  <section class="testimonios" id="testimonios" aria-label="Testimonios de clientes">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Lo que dicen los clientes</p>
+        <h2>Casos resueltos, no promesas</h2>
+        <p>Situaciones reales de clientes que llegaron con un problema y salieron con su trámite resuelto.</p>
+      </div>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carouselTrack">
+
+        <!-- Tarjetas originales (1–10) -->
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Llegué con un expediente a medias que me dejó otro gestor. En Helios me explicaron exactamente qué faltaba y lo resolvieron. Primera vez que alguien me dio información clara antes de cobrar.</p>
+          <div class="test-meta">
+            <span class="test-name">Propietario de restaurante</span>
+            <span class="test-tipo">Licencia de funcionamiento · Querétaro</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Tenía mi negocio operando sin permisos por más de dos años porque no sabía cómo empezar. Me mostraron que era más sencillo de lo que pensaba y lo regularizamos sin problema.</p>
+          <div class="test-meta">
+            <span class="test-name">Dueño de local comercial</span>
+            <span class="test-tipo">Regularización integral · Corregidora</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Abrí mi primer negocio con acompañamiento de Helios desde cero. Lo que más me gustó fue que siempre supieron en qué punto estábamos y qué venía después. Nunca me dejaron en el aire.</p>
+          <div class="test-meta">
+            <span class="test-name">Emprendedora, primer negocio</span>
+            <span class="test-tipo">Licencia nueva + uso de suelo · El Marqués</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">El Vo.Bo. de Protección Civil parecía un cuello de botella que no iba a tener fin. Helios identificó el problema desde el inicio y lo resolvieron en un plazo razonable. Muy profesionales.</p>
+          <div class="test-meta">
+            <span class="test-name">Dueño de estudio</span>
+            <span class="test-tipo">Vo.Bo. Protección Civil · Querétaro</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Intenté hacer la licencia solo por casi un año y siempre me regresaban por algo. Helios lo vio, detectó lo que faltaba y lo sacó adelante. Ojalá los hubiera contactado antes.</p>
+          <div class="test-meta">
+            <span class="test-name">Propietaria de consultorio</span>
+            <span class="test-tipo">Licencia de funcionamiento · Corregidora</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Necesitaba regularizar un predio con historial complicado. Lo que más me sorprendió fue que desde el principio me dijeron exactamente qué podía resolverse y qué no. Sin rodeos.</p>
+          <div class="test-meta">
+            <span class="test-name">Propietario de inmueble</span>
+            <span class="test-tipo">Regularización de predio · El Marqués</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Me recomendaron Helios después de que otro despacho me cobró y desapareció. La diferencia es enorme — aquí te mantienen informado todo el tiempo y el trámite avanza de verdad.</p>
+          <div class="test-meta">
+            <span class="test-name">Dueño de gimnasio</span>
+            <span class="test-tipo">Licencia + Protección Civil · Querétaro</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Abrir una tienda con giro de alimentos parecía muy complicado. En Helios me explicaron con claridad qué se necesitaba para mi tipo de negocio específico y lo gestionaron sin contratiempos.</p>
+          <div class="test-meta">
+            <span class="test-name">Propietaria de tienda de abarrotes</span>
+            <span class="test-tipo">Licencia de funcionamiento · Corregidora</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Tuve un caso complicado porque el local tenía irregularidades previas. Helios no prometió nada que no pudiera cumplir, pero sí resolvió todo. Eso genera una confianza que es difícil de encontrar.</p>
+          <div class="test-meta">
+            <span class="test-name">Mecánico, taller propio</span>
+            <span class="test-tipo">Regularización integral · Querétaro</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">No tenía idea de que para abrir mi negocio necesitaba más de un permiso. Helios me explicó todo desde cero, sin hacerme sentir ignorante, y lo tramitaron completo. Excelente atención.</p>
+          <div class="test-meta">
+            <span class="test-name">Emprendedor, negocio de servicios</span>
+            <span class="test-tipo">Licencia + uso de suelo · El Marqués</span>
+          </div>
+        </div>
+
+        <!-- Clones (11–20) para el loop infinito -->
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Llegué con un expediente a medias que me dejó otro gestor. En Helios me explicaron exactamente qué faltaba y lo resolvieron. Primera vez que alguien me dio información clara antes de cobrar.</p>
+          <div class="test-meta">
+            <span class="test-name">Propietario de restaurante</span>
+            <span class="test-tipo">Licencia de funcionamiento · Querétaro</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Tenía mi negocio operando sin permisos por más de dos años porque no sabía cómo empezar. Me mostraron que era más sencillo de lo que pensaba y lo regularizamos sin problema.</p>
+          <div class="test-meta">
+            <span class="test-name">Dueño de local comercial</span>
+            <span class="test-tipo">Regularización integral · Corregidora</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Abrí mi primer negocio con acompañamiento de Helios desde cero. Lo que más me gustó fue que siempre supieron en qué punto estábamos y qué venía después. Nunca me dejaron en el aire.</p>
+          <div class="test-meta">
+            <span class="test-name">Emprendedora, primer negocio</span>
+            <span class="test-tipo">Licencia nueva + uso de suelo · El Marqués</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">El Vo.Bo. de Protección Civil parecía un cuello de botella que no iba a tener fin. Helios identificó el problema desde el inicio y lo resolvieron en un plazo razonable. Muy profesionales.</p>
+          <div class="test-meta">
+            <span class="test-name">Dueño de estudio</span>
+            <span class="test-tipo">Vo.Bo. Protección Civil · Querétaro</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Intenté hacer la licencia solo por casi un año y siempre me regresaban por algo. Helios lo vio, detectó lo que faltaba y lo sacó adelante. Ojalá los hubiera contactado antes.</p>
+          <div class="test-meta">
+            <span class="test-name">Propietaria de consultorio</span>
+            <span class="test-tipo">Licencia de funcionamiento · Corregidora</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Necesitaba regularizar un predio con historial complicado. Lo que más me sorprendió fue que desde el principio me dijeron exactamente qué podía resolverse y qué no. Sin rodeos.</p>
+          <div class="test-meta">
+            <span class="test-name">Propietario de inmueble</span>
+            <span class="test-tipo">Regularización de predio · El Marqués</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Me recomendaron Helios después de que otro despacho me cobró y desapareció. La diferencia es enorme — aquí te mantienen informado todo el tiempo y el trámite avanza de verdad.</p>
+          <div class="test-meta">
+            <span class="test-name">Dueño de gimnasio</span>
+            <span class="test-tipo">Licencia + Protección Civil · Querétaro</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Abrir una tienda con giro de alimentos parecía muy complicado. En Helios me explicaron con claridad qué se necesitaba para mi tipo de negocio específico y lo gestionaron sin contratiempos.</p>
+          <div class="test-meta">
+            <span class="test-name">Propietaria de tienda de abarrotes</span>
+            <span class="test-tipo">Licencia de funcionamiento · Corregidora</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">Tuve un caso complicado porque el local tenía irregularidades previas. Helios no prometió nada que no pudiera cumplir, pero sí resolvió todo. Eso genera una confianza que es difícil de encontrar.</p>
+          <div class="test-meta">
+            <span class="test-name">Mecánico, taller propio</span>
+            <span class="test-tipo">Regularización integral · Querétaro</span>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p class="test-stars">★★★★★</p>
+          <p class="test-quote">No tenía idea de que para abrir mi negocio necesitaba más de un permiso. Helios me explicó todo desde cero, sin hacerme sentir ignorante, y lo tramitaron completo. Excelente atención.</p>
+          <div class="test-meta">
+            <span class="test-name">Emprendedor, negocio de servicios</span>
+            <span class="test-tipo">Licencia + uso de suelo · El Marqués</span>
+          </div>
+        </div>
+
+      </div><!-- /carousel-track -->
+    </div><!-- /carousel-wrapper -->
+  </section>
+
+  <!-- ══ ZONA ═══════════════════════════════════════════════ -->
+  <section class="zona" aria-label="Zona de cobertura">
+    <div class="zona-inner">
+      <p class="eyebrow" style="text-align:center;color:var(--verde-helios)">Zona de cobertura</p>
+      <h2>Atendemos toda la zona metropolitana de Querétaro</h2>
+      <p>Gestión integral en los tres municipios con mayor actividad comercial del estado.</p>
+      <div class="zona-municipios">
+        <span class="municipio-chip">Querétaro</span>
+        <span class="municipio-chip">Corregidora</span>
+        <span class="municipio-chip">El Marqués</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACTO ═══════════════════════════════════════════ -->
+  <section class="contacto" id="contacto" aria-label="Contacto">
+    <div class="contacto-inner">
+      <p class="eyebrow" style="text-align:center">¿Tienes un caso?</p>
+      <h2>Antes de cotizar, <em>hay que entender</em></h2>
+      <p class="contacto-sub">
+        Cuéntanos qué necesitas o qué está pasando con tu negocio o propiedad.
+        Sin compromiso — el primer paso es entender tu situación.
+      </p>
+      <div class="contacto-btns">
+        <a href="https://wa.me/555645033980?text=Hola,%20quiero%20platicar%20sobre%20mi%20caso%20con%20Helios%20Colectivo%20Empresarial." class="btn-wa" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribir por WhatsApp
+        </a>
+        <a href="mailto:helios.colectivo.empresarial@gmail.com?subject=Consulta%20-%20Helios%20Colectivo%20Empresarial" class="btn-email">
+          ✉ Enviar correo
         </a>
       </div>
-
-      <dl class="hero__stats">
-        <div class="stat">
-          <dt class="stat__label">negocios confían en HELIOS</dt>
-          <dd class="stat__number">+500</dd>
-        </div>
-        <div class="stat">
-          <dt class="stat__label">visitas al municipio para ti</dt>
-          <dd class="stat__number">0</dd>
-          <dd class="stat__detail">Gestión completa de principio a fin.<br>Tú operas, nosotras gestionamos.</dd>
-        </div>
-        <div class="stat">
-          <dt class="stat__label">en multas y recargos evitados</dt>
-          <dd class="stat__number">$35K</dd>
-        </div>
-        <div class="stat">
-          <dt class="stat__label">años encontrando soluciones</dt>
-          <dd class="stat__number">10</dd>
-        </div>
-      </dl>
-
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════
-       PROBLEMA
-  ═══════════════════════════════ -->
-  <section class="problem">
-    <div class="container">
-      <span class="section-label">El problema que resolvemos</span>
-      <p class="problem__headline">
-        ¿Tu negocio opera sin los permisos en regla?
+      <p class="contacto-nota">
+        <strong>Lunes a viernes · 9:00 a 18:00 hrs</strong><br>
+        Querétaro, Qro. · México
       </p>
-      <div class="problem__grid">
-        <div class="problem__item">
-          <span class="problem__num">01</span>
-          <p>Multas y clausuras por no contar con licencia de funcionamiento
-             o dictamen de protección civil vigentes.</p>
-        </div>
-        <div class="problem__item">
-          <span class="problem__num">02</span>
-          <p>Trámites detenidos por documentación incompleta o presentada
-             ante la dependencia incorrecta.</p>
-        </div>
-        <div class="problem__item">
-          <span class="problem__num">03</span>
-          <p>Tiempo y dinero perdidos navegando sola la burocracia municipal
-             sin guía experta en los procedimientos reales.</p>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════
-       SERVICIOS
-  ═══════════════════════════════ -->
-  <section class="services" id="servicios">
-    <div class="container">
-      <span class="section-label">Lo que hacemos</span>
-      <h2 class="section-title">Regularización a la medida de tu negocio</h2>
-      <p class="section-body">
-        Cada negocio requiere un conjunto diferente de gestiones. Identificamos
-        el nivel de riesgo de tu giro y nos encargamos de todo: licencia de
-        funcionamiento, dictamen de protección civil y documentos anexos.
-      </p>
-
-      <div class="services__grid">
-
-        <!-- ── Riesgo Bajo ── -->
-        <div class="service-card">
-          <p class="service-card__risk">Riesgo Bajo</p>
-          <h3 class="service-card__name">Comercios y Servicios</h3>
-          <div class="service-card__price">
-            <span class="service-card__amount">$3,500</span>
-            <span class="service-card__currency">MXN</span>
-          </div>
-          <p class="service-card__desc">
-            Comercios, oficinas, consultorios y giros con operaciones de
-            bajo impacto regulatorio.
-          </p>
-          <ul class="service-card__includes">
-            <li>Licencia de funcionamiento</li>
-            <li>Dictamen de protección civil</li>
-            <li>Documentos anexos completos</li>
-            <li>Gestión directa ante dependencias</li>
-          </ul>
-          <a
-            href="https://wa.me/524426001520?text=Hola%2C%20me%20interesa%20el%20paquete%20de%20Riesgo%20Bajo%20%28%243%2C500%20MXN%29.%20%C2%BFPodr%C3%ADan%20orientarme%3F"
-            class="btn btn--primary btn--full"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Iniciar trámite</a>
+  <!-- ══ FOOTER ═════════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <p class="footer-logo-sub">Colectivo Empresarial</p>
+        <p class="footer-logo-name">HELIOS</p>
+        <div class="footer-logo-rule">
+          <span class="line"></span><span class="dot"></span><span class="line"></span>
         </div>
-
-        <!-- ── Riesgo Medio ── -->
-        <div class="service-card">
-          <p class="service-card__risk">Riesgo Medio</p>
-          <h3 class="service-card__name">Industria y Alimentos</h3>
-          <div class="service-card__price">
-            <span class="service-card__amount">$5,500</span>
-            <span class="service-card__currency">MXN</span>
-          </div>
-          <p class="service-card__desc">
-            Establecimientos con preparación de alimentos, talleres,
-            industria ligera y giros con mayor complejidad operativa.
-          </p>
-          <ul class="service-card__includes">
-            <li>Licencia de funcionamiento</li>
-            <li>Dictamen de protección civil</li>
-            <li>Documentos anexos completos</li>
-            <li>Gestión directa ante dependencias</li>
-          </ul>
-          <a
-            href="https://wa.me/524426001520?text=Hola%2C%20me%20interesa%20el%20paquete%20de%20Riesgo%20Medio%20%28%245%2C500%20MXN%29.%20%C2%BFPodr%C3%ADan%20orientarme%3F"
-            class="btn btn--secondary btn--full"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Iniciar trámite</a>
-        </div>
-
-        <!-- ── Riesgo Alto ── -->
-        <div class="service-card">
-          <p class="service-card__risk">Riesgo Alto</p>
-          <h3 class="service-card__name">Giros de Alta Complejidad</h3>
-          <div class="service-card__price">
-            <span class="service-card__amount">Cotización</span>
-          </div>
-          <p class="service-card__desc">
-            Giros con requerimientos especiales ante múltiples dependencias
-            municipales, estatales o federales.
-          </p>
-          <ul class="service-card__includes">
-            <li>Diagnóstico regulatorio inicial</li>
-            <li>Gestión multiinstancia</li>
-            <li>Documentación completa</li>
-            <li>Seguimiento hasta resolución</li>
-          </ul>
-          <a
-            href="https://wa.me/524426001520?text=Hola%2C%20tengo%20un%20negocio%20de%20riesgo%20alto%20y%20necesito%20orientaci%C3%B3n.%20%C2%BFPodr%C3%ADan%20ayudarme%3F"
-            class="btn btn--secondary btn--full"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Solicitar cotización</a>
-        </div>
-
-        <!-- ── Proyectos Especializados ── -->
-        <div class="service-card service-card--dark">
-          <p class="service-card__risk">Proyectos</p>
-          <h3 class="service-card__name">Soluciones Especializadas</h3>
-          <div class="service-card__price">
-            <span class="service-card__amount">A la medida</span>
-          </div>
-          <p class="service-card__desc">
-            Cada proyecto se cotiza de acuerdo con sus requerimientos
-            específicos y el alcance de las dependencias involucradas.
-          </p>
-          <ul class="service-card__includes">
-            <li>Licencias de alcohol</li>
-            <li>Regularización de obras</li>
-            <li>Levantamientos arquitectónicos</li>
-            <li>Levantamientos topográficos</li>
-          </ul>
-          <a
-            href="https://wa.me/524426001520?text=Hola%2C%20tengo%20un%20proyecto%20especializado%20y%20necesito%20una%20cotizaci%C3%B3n.%20%C2%BFPodr%C3%ADan%20orientarme%3F"
-            class="btn btn--gold btn--full"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Solicitar cotización</a>
-        </div>
-
+        <p class="footer-tagline">Consultoría y gestión empresarial · Querétaro</p>
+      </div>
+      <div class="footer-links">
+        <h4>Servicios</h4>
+        <a href="#servicios">Licencia de Funcionamiento</a>
+        <a href="#servicios">Vo.Bo. Protección Civil</a>
+        <a href="#servicios">Otros trámites y proyectos</a>
+      </div>
+      <div class="footer-links">
+        <h4>Contacto</h4>
+        <a href="https://wa.me/555645033980" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:helios.colectivo.empresarial@gmail.com?subject=Consulta%20-%20Helios%20Colectivo%20Empresarial">Correo electrónico</a>
+        <a href="https://helioscolectivoempresarial.com.mx">helioscolectivoempresarial.com.mx</a>
       </div>
     </div>
-  </section>
-
-  <!-- ═══════════════════════════════
-       POR QUÉ HELIOS
-  ═══════════════════════════════ -->
-  <section class="why" id="nosotros">
-    <div class="container">
-      <span class="section-label">Por qué elegirnos</span>
-      <h2 class="section-title">
-        Conocimiento local.<br>
-        Resultados concretos.
-      </h2>
-      <div class="why__grid">
-
-        <div class="why__item">
-          <span class="why__icon" aria-hidden="true">◈</span>
-          <h3>Experiencia en el municipio</h3>
-          <p>
-            Conocemos los tiempos reales, los procedimientos y las dependencias
-            de Querétaro, Corregidora y El Marqués. Sin aprendizaje a tu costo.
-          </p>
-        </div>
-
-        <div class="why__item">
-          <span class="why__icon" aria-hidden="true">◈</span>
-          <h3>Gestión directa</h3>
-          <p>
-            Nos presentamos ante cada dependencia para garantizar que tu expediente
-            avance sin contratiempos ni demoras evitables. No delegamos.
-          </p>
-        </div>
-
-        <div class="why__item">
-          <span class="why__icon" aria-hidden="true">◈</span>
-          <h3>Entrega completa</h3>
-          <p>
-            Tu negocio recibe la documentación lista para operar.
-            Sin pendientes, sin piezas faltantes, sin sorpresas de último minuto.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════
-       CTA FINAL
-  ═══════════════════════════════ -->
-  <section class="cta-final">
-    <div class="container">
-      <h2 class="cta-final__title">¿Listo para regularizar tu negocio?</h2>
-      <p class="cta-final__body">
-        Cuéntanos tu situación. En menos de 24 horas tendrás una respuesta
-        clara sobre los pasos a seguir y el costo exacto de tu trámite.
-      </p>
-      <a
-        href="https://wa.me/524426001520?text=Hola%2C%20quiero%20regularizar%20mi%20negocio.%20%C2%BFPueden%20orientarme%3F"
-        class="btn btn--primary btn--large"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Escribir por WhatsApp
-      </a>
-    </div>
-  </section>
-
-  </main>
-
-  <!-- ═══════════════════════════════
-       FOOTER
-  ═══════════════════════════════ -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="logo">
-        <span class="logo__name">HELIOS</span>
-        <span class="logo__tagline">Colectivo Empresarial</span>
-      </div>
-      <p class="footer__location">Querétaro, Qro. · México</p>
-      <p class="footer__copy">© 2025 HELIOS Colectivo Empresarial. Todos los derechos reservados.</p>
+    <div class="footer-bottom">
+      <p>© 2026 Helios Colectivo Empresarial · Querétaro, México</p>
+      <p>Querétaro · Corregidora · El Marqués</p>
     </div>
   </footer>
-
-  <!-- ═══════════════════════════════
-       BOTÓN WHATSAPP FLOTANTE
-  ═══════════════════════════════ -->
-  <a
-    class="whatsapp-float"
-    href="https://wa.me/524426001520?text=Hola%2C%20me%20interesa%20conocer%20sus%20servicios."
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Contactar por WhatsApp"
-  >
-    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  </a>
 
 </body>
 </html>
