@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagnóstico inicial — Helios Colectivo Empresarial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde-noche:   #1C2B24;
+      --verde-profundo:#2A5C45;
+      --dorado:        #C9A84C;
+      --salvia:        #7AAD8E;
+      --blanco:        #F4F8F5;
+      --borde:         #D4E4DA;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--verde-noche);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    header {
+      padding: 24px 20px 18px;
+      text-align: center;
+      border-bottom: 1px solid rgba(201,168,76,.18);
+    }
+    header a { text-decoration: none; }
+    .logo-sub  { font-size: 11px; font-weight: 500; letter-spacing: .22em; color: var(--salvia); text-transform: uppercase; }
+    .logo-name { font-family: 'Libre Baskerville', Georgia, serif; font-size: 30px; font-weight: 700; color: var(--blanco); letter-spacing: .15em; margin-top: 2px; }
+    .logo-rule { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 7px; }
+    .logo-rule span { display: block; height: 1.5px; width: 56px; background: var(--dorado); }
+    .logo-rule i    { display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--dorado); }
+    .logo-tagline   { font-size: 12px; color: var(--salvia); margin-top: 10px; letter-spacing: .04em; }
+
+    /* ── Main ────────────────────────────────────────────── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 28px 16px 56px;
+    }
+
+    .wizard { width: 100%; max-width: 500px; }
+
+    /* ── Breadcrumb ──────────────────────────────────────── */
+    .paso-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      color: var(--salvia);
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      min-height: 16px;
+      transition: opacity .3s;
+    }
+
+    /* ── Card ────────────────────────────────────────────── */
+    .card {
+      background: var(--blanco);
+      border-radius: 18px;
+      padding: 32px 26px 28px;
+      box-shadow: 0 6px 32px rgba(0,0,0,.35);
+    }
+
+    /* Screens */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── Typografía ──────────────────────────────────────── */
+    .card h2 {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--verde-noche);
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+    .card .sub {
+      font-size: 13px;
+      color: var(--salvia);
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+    .field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--verde-noche);
+      margin: 20px 0 10px;
+    }
+
+    /* ── Botones de opción ───────────────────────────────── */
+    .opts      { display: flex; flex-direction: column; gap: 10px; }
+    .opts.row  { flex-direction: row; }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 15px 16px;
+      border: 2px solid var(--borde);
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--verde-noche);
+      transition: border-color .15s, background .15s;
+    }
+    .opts.row .opt {
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      padding: 14px 8px;
+      font-size: 14px;
+      justify-content: center;
+    }
+    .opt:hover { border-color: var(--salvia); background: #eef7f2; }
+    .opt .dot  { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--borde); transition: border-color .15s, background .15s; }
+    .opts.row .opt .dot { width: 16px; height: 16px; }
+    .opt:hover .dot { border-color: var(--salvia); }
+    .opt.sel { border-color: var(--verde-profundo); background: #ebf5f0; }
+    .opt.sel .dot { border-color: var(--verde-profundo); background: var(--verde-profundo); box-shadow: inset 0 0 0 3px white; }
+
+    /* ── Inputs de texto ─────────────────────────────────── */
+    .field { margin-top: 16px; }
+    .field label { display: block; font-size: 13px; font-weight: 600; color: var(--verde-noche); margin-bottom: 6px; }
+    .field input, .field select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 2px solid var(--borde);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--verde-noche);
+      background: white;
+      outline: none;
+      transition: border-color .15s;
+      -webkit-appearance: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--verde-profundo); }
+
+    /* ── Botón siguiente ─────────────────────────────────── */
+    .btn-next {
+      display: block;
+      width: 100%;
+      margin-top: 26px;
+      padding: 15px;
+      background: var(--verde-profundo);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-next:hover { background: var(--verde-noche); }
+
+    /* ── Regresar ────────────────────────────────────────── */
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      color: var(--salvia);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 18px;
+    }
+    .btn-back:hover { color: var(--verde-noche); }
+
+    /* ── Resultado ───────────────────────────────────────── */
+    .resumen {
+      background: var(--verde-noche);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0 0;
+    }
+    .resumen-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      color: var(--salvia);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .resumen-item {
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--blanco);
+      margin-bottom: 9px;
+      line-height: 1.4;
+    }
+    .resumen-item .arrow { color: var(--dorado); flex-shrink: 0; font-style: normal; }
+    .resumen-item strong { font-weight: 600; color: var(--salvia); }
+
+    /* ── WhatsApp CTA ────────────────────────────────────── */
+    .btn-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      width: 100%;
+      margin-top: 20px;
+      padding: 16px;
+      background: #25D366;
+      color: white;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .btn-wa:hover { background: #1fba58; }
+
+    .nota {
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--borde);
+      margin: 22px 0;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">
+    <div class="logo-sub">Colectivo Empresarial</div>
+    <div class="logo-name">HELIOS</div>
+    <div class="logo-rule"><span></span><i></i><span></span></div>
+  </a>
+  <div class="logo-tagline">Diagnóstico inicial de tu caso</div>
+</header>
+
+<main>
+  <div class="wizard">
+    <div class="paso-label" id="paso-label">Paso 1 · Situación</div>
+
+    <!-- ══════════════════════════════════════════════════════
+         PASO 1 · ¿Opera?
+    ═══════════════════════════════════════════════════════ -->
+    <div class="screen active" id="s1">
+      <div class="card">
+        <h2>¿Tu negocio actualmente opera?</h2>
+        <p class="sub">Con esto sabemos por dónde empezar.</p>
+        <div class="opts">
+          <button class="opt" data-key="opera" data-val="no" onclick="pick(this)">
+            <span class="dot"></span>No, estoy abriendo un negocio nuevo
+          </button>
+          <button class="opt" data-key="opera" data-val="si" onclick="pick(this)">
+            <span class="dot"></span>Sí, ya está en operación
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         PASO 2 · ¿Tiene licencia? (solo si opera=sí)
+    ═══════════════════════════════════════════════════════ -->
+    <div class="screen" id="s2">
+      <div class="card">
+        <button class="btn-back" onclick="ir('s1','Paso 1 · Situación')">← Regresar</button>
+        <h2>¿Cuentas con licencia de funcionamiento?</h2>
+        <p class="sub">El permiso municipal que te autoriza a operar.</p>
+        <div class="opts">
+          <button class="opt" data-key="lc" data-val="si" onclick="pick(this)">
+            <span class="dot"></span>Sí, tengo licencia
+          </button>
+          <button class="opt" data-key="lc" data-val="no" onclick="pick(this)">
+            <span class="dot"></span>No, opero sin licencia
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         PASO 3A · Datos simples (apertura o sin licencia)
+    ═══════════════════════════════════════════════════════ -->
+    <div class="screen" id="s3a">
+      <div class="card">
+        <button class="btn-back" id="back-3a" onclick="">← Regresar</button>
+        <h2 id="h-3a">Cuéntanos un poco más</h2>
+        <p class="sub" id="sub-3a">Tres datos que nos permiten evaluar tu situación.</p>
+
+        <div class="field-label">¿Ya cuentas con dictamen de uso de suelo?</div>
+        <div class="opts row">
+          <button class="opt" data-key="dictamen" data-val="si"  onclick="pick(this)"><span class="dot"></span>Sí</button>
+          <button class="opt" data-key="dictamen" data-val="no"  onclick="pick(this)"><span class="dot"></span>No</button>
+          <button class="opt" data-key="dictamen" data-val="nse" onclick="pick(this)"><span class="dot"></span>No sé</button>
+        </div>
+
+        <div class="field">
+          <label>¿Qué tipo de negocio es (o será)?</label>
+          <input id="giro" type="text" placeholder="Ej. taquería, taller, boutique…">
+        </div>
+        <div class="field">
+          <label>Ubicación o dirección aproximada</label>
+          <input id="ubicacion" type="text" placeholder="Ej. Av. Constituyentes, Querétaro">
+        </div>
+
+        <button class="btn-next" onclick="resultado('simple')">Ver mi diagnóstico →</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         PASO 3B · Datos de renovación (tiene licencia)
+    ═══════════════════════════════════════════════════════ -->
+    <div class="screen" id="s3b">
+      <div class="card">
+        <button class="btn-back" onclick="ir('s2','Paso 2 · Licencia')">← Regresar</button>
+        <h2>Cuéntanos sobre tu licencia</h2>
+        <p class="sub">Esto nos ayuda a detectar qué está vigente y qué no.</p>
+
+        <div class="field-label">¿Tu licencia refleja el giro que tienes actualmente?</div>
+        <div class="opts row">
+          <button class="opt" data-key="acorde" data-val="si"  onclick="pick(this)"><span class="dot"></span>Sí</button>
+          <button class="opt" data-key="acorde" data-val="no"  onclick="pick(this)"><span class="dot"></span>No</button>
+          <button class="opt" data-key="acorde" data-val="nse" onclick="pick(this)"><span class="dot"></span>No sé</button>
+        </div>
+
+        <div class="field">
+          <label>¿De qué año es tu última licencia?</label>
+          <select id="lc-anio">
+            <option value="">— Selecciona —</option>
+          </select>
+        </div>
+
+        <div class="field-label">¿Renovaste en tiempo y forma con Protección Civil?</div>
+        <div class="opts row">
+          <button class="opt" data-key="pc" data-val="si"  onclick="pick(this)"><span class="dot"></span>Sí</button>
+          <button class="opt" data-key="pc" data-val="no"  onclick="pick(this)"><span class="dot"></span>No</button>
+          <button class="opt" data-key="pc" data-val="nse" onclick="pick(this)"><span class="dot"></span>No sé</button>
+        </div>
+
+        <button class="btn-next" onclick="resultado('renov')">Ver mi diagnóstico →</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         RESULTADO
+    ═══════════════════════════════════════════════════════ -->
+    <div class="screen" id="s-fin">
+      <div class="card">
+        <h2>Tu diagnóstico preliminar</h2>
+        <p class="sub">Esto es lo que podemos ver con los datos que compartiste.</p>
+
+        <div class="resumen" id="resumen"></div>
+
+        <div class="divider"></div>
+
+        <a id="wa-btn" href="#" class="btn-wa" target="_blank" rel="noopener">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Enviar mi caso a Helios
+        </a>
+        <p class="nota">Al tocar el botón se abre WhatsApp con el resumen de tu caso ya escrito.</p>
+      </div>
+    </div>
+
+  </div><!-- /.wizard -->
+</main>
+
+<script>
+  // ── Estado ──────────────────────────────────────────────────────────────
+  const S = {};
+
+  // ── Poblar selector de año ───────────────────────────────────────────────
+  const selAnio = document.getElementById('lc-anio');
+  const hoy = new Date().getFullYear();
+  for (let y = hoy; y >= hoy - 15; y--) {
+    const o = document.createElement('option');
+    o.value = y; o.textContent = y;
+    selAnio.appendChild(o);
+  }
+
+  // ── Navegación ──────────────────────────────────────────────────────────
+  function ir(screenId, label) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    document.getElementById('paso-label').textContent = label || '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Selección de opciones ───────────────────────────────────────────────
+  function pick(btn) {
+    const key = btn.dataset.key;
+    const val = btn.dataset.val;
+    S[key] = val;
+
+    // Deselect siblings
+    btn.closest('.opts').querySelectorAll('.opt').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+
+    // Auto-avanzar en preguntas binarias de pantalla completa
+    if (key === 'opera') {
+      setTimeout(() => {
+        if (val === 'no') {
+          document.getElementById('back-3a').onclick = () => ir('s1', 'Paso 1 · Situación');
+          document.getElementById('h-3a').textContent = 'Datos para la apertura';
+          document.getElementById('sub-3a').textContent = 'Tres datos que nos permiten evaluar tu caso desde el inicio.';
+          ir('s3a', 'Paso 2 · Tu negocio');
+        } else {
+          ir('s2', 'Paso 2 · Licencia');
+        }
+      }, 260);
+    }
+
+    if (key === 'lc') {
+      setTimeout(() => {
+        if (val === 'no') {
+          document.getElementById('back-3a').onclick = () => ir('s2', 'Paso 2 · Licencia');
+          document.getElementById('h-3a').textContent = 'Datos de tu negocio';
+          document.getElementById('sub-3a').textContent = 'Con esto podemos evaluar cómo regularizar tu situación.';
+          ir('s3a', 'Paso 3 · Tu negocio');
+        } else {
+          ir('s3b', 'Paso 3 · Tu licencia');
+        }
+      }, 260);
+    }
+  }
+
+  // ── Etiquetas legibles ───────────────────────────────────────────────────
+  const DIC  = { si: 'Sí', no: 'No', nse: 'No lo sabe aún' };
+  const ACRD = { si: 'Sí, está acorde', no: 'No, el giro cambió', nse: 'No está seguro/a' };
+  const PC   = { si: 'Sí, al día', no: 'Sin renovar', nse: 'No lo sabe' };
+
+  // ── Generar resultado ────────────────────────────────────────────────────
+  function resultado(rama) {
+    const giro     = (document.getElementById('giro')?.value || '').trim();
+    const ubicacion= (document.getElementById('ubicacion')?.value || '').trim();
+    const anio     = document.getElementById('lc-anio')?.value || '';
+
+    let items = [];
+    let msgParts = ['Hola, llegué a través del diagnóstico de Helios Colectivo Empresarial.\n'];
+
+    if (rama === 'simple') {
+      const sit = S.opera === 'no' ? 'Apertura de negocio nuevo' : 'Negocio en operación sin licencia';
+      items = [
+        { k: 'Situación',                   v: sit },
+        { k: 'Dictamen de uso de suelo',    v: DIC[S.dictamen] || '—' },
+        { k: 'Giro del negocio',            v: giro      || '(no especificado)' },
+        { k: 'Ubicación',                   v: ubicacion || '(no especificada)' },
+      ];
+      msgParts.push(`*Situación:* ${sit}`);
+      msgParts.push(`*Dictamen de uso de suelo:* ${DIC[S.dictamen] || '—'}`);
+      msgParts.push(`*Giro:* ${giro || '—'}`);
+      msgParts.push(`*Ubicación:* ${ubicacion || '—'}`);
+    } else {
+      items = [
+        { k: 'Situación',                     v: 'Renovación de licencia' },
+        { k: 'Licencia acorde al giro actual', v: ACRD[S.acorde] || '—' },
+        { k: 'Año de última licencia',         v: anio || 'No indicado' },
+        { k: 'Protección Civil',               v: PC[S.pc] || '—' },
+      ];
+      msgParts.push(`*Situación:* Renovación de licencia de funcionamiento`);
+      msgParts.push(`*Licencia acorde al giro actual:* ${ACRD[S.acorde] || '—'}`);
+      msgParts.push(`*Año de última licencia:* ${anio || '—'}`);
+      msgParts.push(`*Protección Civil:* ${PC[S.pc] || '—'}`);
+    }
+
+    msgParts.push('\n¿Pueden orientarme sobre qué debo hacer?');
+
+    // Construir HTML del resumen
+    document.getElementById('resumen').innerHTML =
+      `<div class="resumen-title">Tu caso</div>` +
+      items.map(i =>
+        `<div class="resumen-item">
+          <em class="arrow">→</em>
+          <div><strong>${i.k}:</strong> ${i.v}</div>
+        </div>`
+      ).join('');
+
+    // Armar link de WhatsApp
+    const msg = msgParts.join('\n');
+    document.getElementById('wa-btn').href =
+      `https://wa.me/525645033980?text=${encodeURIComponent(msg)}`;
+
+    ir('s-fin', 'Diagnóstico listo');
+  }
+</script>
+</body>
+</html>
